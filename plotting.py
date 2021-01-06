@@ -6,7 +6,7 @@ from matplotlib import dates as mpl_dates
 import pandas as pd
 plt.style.use('seaborn')
 
-data = pd.read_csv('/home/pi/Desktop/Python Projects/MotionDetection/Motionlog.csv')
+data = pd.read_csv('/home/user/Desktop/MotionDetection/Motionlog.csv')
 data['dateandtime'] = pd.to_datetime(data['dateandtime'])
 #data.sort_values('dateandtime', inplace=True)
 action_date = data['dateandtime']
