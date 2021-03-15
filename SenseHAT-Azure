@@ -1,0 +1,25 @@
+from sense_hat import SenseHat
+from datetime import datetime
+from time import sleep
+
+
+
+from azure.iot.device import IoTHubDeviceClient, Message, MethodResponse
+CONNECTION_STRING = "CONNECTION_STRING"
+MSG_TXT = '{{"temperature": {temperature}, "pressure": {pressure}, "humidity": {humidity}}}'
+
+def iothub_client_init():
+    client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
+    return client
+
+client = iothub_client_init()
+sense = SenseHat()
+while True:
+    temperature = sense.get_temperature()
+    pressure = sense.get_pressure()
+    humidity = sense.get_humidity()
+    msg_txt_formatted = MSG_TXT.format(temperature=temperature, pressure=pressure, humidity=humidity)
+    message = Message(msg_txt_formatted)
+    client.send_message(message)
+    sleep(60)
+            
